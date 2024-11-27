@@ -46,15 +46,15 @@ class TestIntelligentOffice(unittest.TestCase):
         self.assertRaises(IntelligentOfficeError, io.check_quadrant_occupancy,14)
 
     @patch.object(SDL_DS3231, "read_datetime")
-    def test_blinds_fully_open(self, mock_datetime: Mock):
+    def test_blinds_fully_open_weekday(self, mock_datetime: Mock):
         mock_datetime.return_value = datetime(2024, 11, 16, 16, 10)
         io = IntelligentOffice()
         io.manage_blinds_based_on_time()
         self.assertTrue(io.blinds_open)
 
     @patch.object(SDL_DS3231, "read_datetime")
-    def test_blinds_fully_close(self, mock_datetime: Mock):
-        mock_datetime.return_value = datetime(2024, 11, 16, 16, 10)
+    def test_blinds_fully_close_weekend(self, mock_datetime: Mock):
+        mock_datetime.return_value = datetime(2024, 11, 25, 16, 10)
         io = IntelligentOffice()
         io.manage_blinds_based_on_time()
         self.assertFalse(io.blinds_open)
