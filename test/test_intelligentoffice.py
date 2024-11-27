@@ -99,6 +99,16 @@ class TestIntelligentOffice(unittest.TestCase):
         mock_lux.side_effect = [501]
         io = IntelligentOffice()
         io.manage_light_level()
+        mock_led.assert_called_with(io.LED_PIN, True)
+        self.assertTrue(io.light_on)
+
+    @patch.object(GPIO, "output")
+    @patch.object(GPIO, "input")
+    @patch.object(VEML7700, "lux", new_callable=PropertyMock)
+    def test_turn_off_light_not_crowded_room(self, mock_lux: Mock, mock_occupancy: Mock, mock_led: Mock):
+        mock_occupancy.return_value = True
+        mock_lux.side_effect = [551]
+        io = IntelligentOffice()
+        io.manage_light_level()
         mock_led.assert_called_with(io.LED_PIN, False)
         self.assertFalse(io.light_on)
-
