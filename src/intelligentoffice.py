@@ -64,7 +64,7 @@ class IntelligentOffice:
     def manage_blinds_based_on_time(self) -> None:
         day= self.rtc.read_datetime()
         hour= self.rtc.read_datetime().hour
-        if day.weekday() in [1,2,3,4,5] and hour < 20 :
+        if day.weekday() in [1,2,3,4,5] and (8 <= hour < 20) :
             self.blinds_open = True
             duty_cycle = (180 / 18) + 2
             self.change_servo_angle(duty_cycle)
