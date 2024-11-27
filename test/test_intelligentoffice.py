@@ -10,7 +10,32 @@ from src.intelligentoffice import IntelligentOffice, IntelligentOfficeError
 class TestIntelligentOffice(unittest.TestCase):
 
     @patch.object(GPIO, "input")
-    def test_person_in_room_pin1(self, mock_pin_11: Mock):
-        mock_pin_11.return_value = True
+    def test_person_in_room_pin1(self, mock_pin_1: Mock):
+        mock_pin_1.return_value = True
         io = IntelligentOffice()
         self.assertTrue(io.check_quadrant_occupancy(io.INFRARED_PIN1))
+
+    @patch.object(GPIO, "input")
+    def test_person_in_room_pin2(self, mock_pin_2: Mock):
+        mock_pin_2.return_value = True
+        io = IntelligentOffice()
+        self.assertTrue(io.check_quadrant_occupancy(io.INFRARED_PIN2))
+
+    @patch.object(GPIO, "input")
+    def test_person_in_room_pin3(self, mock_pin_3: Mock):
+        mock_pin_3.return_value = True
+        io = IntelligentOffice()
+        self.assertTrue(io.check_quadrant_occupancy(io.INFRARED_PIN3))
+
+    @patch.object(GPIO, "input")
+    def test_person_in_room_pin4(self, mock_pin_4: Mock):
+        mock_pin_4.return_value = True
+        io = IntelligentOffice()
+        self.assertTrue(io.check_quadrant_occupancy(io.INFRARED_PIN4))
+
+    @patch.object(GPIO, "input")
+    def test_no_person_in_room(self, mock_pin_11: Mock):
+        mock_pin_11.return_value = False
+        io = IntelligentOffice()
+        self.assertFalse(io.check_quadrant_occupancy(io.INFRARED_PIN1))
+
