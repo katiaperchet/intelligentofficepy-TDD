@@ -56,7 +56,7 @@ class IntelligentOffice:
     def check_quadrant_occupancy(self, pin: int) -> bool:
         if GPIO.input(pin) == GPIO.HIGH:
             return True
-
+        return False
     def manage_blinds_based_on_time(self) -> None:
         # To be implemented
         pass
