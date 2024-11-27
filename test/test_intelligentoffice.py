@@ -73,4 +73,11 @@ class TestIntelligentOffice(unittest.TestCase):
         io.manage_blinds_based_on_time()
         self.assertFalse(io.blinds_open)
 
-
+    @patch.object(GPIO, "output")
+    @patch.object(VEML7700, "lux")
+    def test_light_on_lux(self, mock_lux: Mock, mock_led):
+        mock_lux.side_effect = [501]
+        io = IntelligentOffice()
+        io.manage_light_level()
+        mock_led.assert_called_with(io.LED_PIN, True)
+        self.assertTrue(io.light_on)
