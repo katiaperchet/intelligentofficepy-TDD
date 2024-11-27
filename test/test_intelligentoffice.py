@@ -74,7 +74,7 @@ class TestIntelligentOffice(unittest.TestCase):
         self.assertFalse(io.blinds_open)
 
     @patch.object(GPIO, "output")
-    @patch.object(VEML7700, "lux")
+    @patch.object(VEML7700, "lux", new_callable=PropertyMock)
     def test_light_on_lux(self, mock_lux: Mock, mock_led):
         mock_lux.side_effect = [501]
         io = IntelligentOffice()
@@ -83,7 +83,7 @@ class TestIntelligentOffice(unittest.TestCase):
         self.assertTrue(io.light_on)
 
     @patch.object(GPIO, "output")
-    @patch.object(VEML7700, "lux")
+    @patch.object(VEML7700, "lux", new_callable=PropertyMock)
     def test_light_off_lux(self, mock_lux: Mock, mock_led):
         mock_lux.side_effect = [551]
         io = IntelligentOffice()
