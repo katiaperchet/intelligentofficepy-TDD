@@ -112,3 +112,12 @@ class TestIntelligentOffice(unittest.TestCase):
         io.manage_light_level()
         mock_led.assert_called_with(io.LED_PIN, False)
         self.assertFalse(io.light_on)
+
+    @patch.object(GPIO, "output")
+    @patch.object(GPIO, "input")
+    def test_buzzer_on(self, mock_gpio_input: Mock, mock_gpio_output: Mock):
+        mock_gpio_input.return_value = True
+        io = IntelligentOffice()
+        io.monitor_air_quality()
+        mock_gpio_output.assert_called_with(io.GAS_PIN, True)
+        self.assertTrue(io.buzzer_on)
