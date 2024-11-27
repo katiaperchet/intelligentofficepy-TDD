@@ -116,7 +116,7 @@ class TestIntelligentOffice(unittest.TestCase):
     @patch.object(GPIO, "output")
     @patch.object(GPIO, "input")
     def test_buzzer_on_when_bad_air_quality(self, mock_gpio_input: Mock, mock_gpio_output: Mock):
-        mock_gpio_input.return_value = True
+        mock_gpio_input.return_value = False
         io = IntelligentOffice()
         io.monitor_air_quality()
         mock_gpio_output.assert_called_with(io.BUZZER_PIN, True)
