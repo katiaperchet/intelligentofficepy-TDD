@@ -74,8 +74,9 @@ class IntelligentOffice:
             self.change_servo_angle(duty_cycle)
 
     def manage_light_level(self) -> None:
-        # To be implemented
-        pass
+        if int(self.ambient_light_sensor.lux) < 500:
+            GPIO.output(self.LED_PIN, GPIO.HIGH)
+            self.light_on = True
 
 
     def monitor_air_quality(self) -> None:
