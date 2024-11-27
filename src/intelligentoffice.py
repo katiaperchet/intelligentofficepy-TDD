@@ -75,7 +75,10 @@ class IntelligentOffice:
 
     def manage_light_level(self) -> None:
         value= int(self.ambient_light_sensor.lux)
-        if value < 500:
+        count = 0
+        for pin in [self.INFRARED_PIN1, self.INFRARED_PIN2, self.INFRARED_PIN3, self.INFRARED_PIN4]:
+            count = count +1
+        if count >= 1 and value < 500:
             GPIO.output(self.LED_PIN, GPIO.HIGH)
             self.light_on = True
         else:
